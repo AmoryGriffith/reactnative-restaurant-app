@@ -18,7 +18,7 @@ export default function Home({navigation}) {
   const getRestaurantFromWeb = async () => {
     const webUrl =
       // `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${city}`; right one actually, but no credit no free gg map
-      'https://api.yelp.com/v3/businesses/search?term=restaurants&location=Hollywood'; // this is hard code for the url, location is editable
+      'https://api.yelp.com/v3/businesses/search?term=restaurants&location=NewYork'; // this is hard code for the url, location is editable
     const apiOptions = {
       headers: {
         Authorization: `Bearer ${WEB_API_KEY}`,
