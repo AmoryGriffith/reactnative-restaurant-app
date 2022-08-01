@@ -1,6 +1,7 @@
 import {View, Text, Image, ScrollView} from 'react-native';
 import React from 'react';
 import {Divider} from 'react-native-elements';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 export default function MenuItems() {
   return (
@@ -13,6 +14,7 @@ export default function MenuItems() {
               justifyContent: 'space-between',
               margin: 20,
             }}>
+            <BouncyCheckbox fillColor="#8A0707" />
             <FoodInfo
               title={item.title}
               description={item.description}
