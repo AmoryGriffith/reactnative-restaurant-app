@@ -2,13 +2,13 @@ import {View, Text, Image} from 'react-native';
 import React from 'react';
 
 export default function About({route}) {
-  const {image, name, reviews, rating, categories} = route.params;
-  if (categories) {
-    const formattedCate = categories.map(item => item.title).join(' • ');
-    const description = `${formattedCate} ${
-      price ? ' • ' + price : ''
-    } • ${rating} • ${reviews}`;
-  }
+  const {image, name, reviews, rating, categories, price} = route.params;
+  const formattedCate = `${
+    categories ? categories.map(item => item.title).join(' • ') : ''
+  }`;
+  const description = `${formattedCate} ${
+    price ? ' • ' + price + '$' : ''
+  } • ${rating} rates• ${reviews} reviews`;
 
   return (
     <>
@@ -30,7 +30,7 @@ export default function About({route}) {
             marginTop: 10,
             marginHorizontal: 15,
           }}>
-          {/* {description} */}
+          {description}
         </Text>
       </View>
     </>

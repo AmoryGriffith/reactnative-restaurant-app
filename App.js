@@ -1,16 +1,10 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-// import Ionicons from 'react-native-vector-icons/Ionicons';
-// import AntDesign from 'react-native-vector-icons/AntDesign';
-// AntDesign.loadFont().then();
-// Ionicons.loadFont().then();
-import 'react-native-gesture-handler';
 import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import * as Screens from './screens';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Provider, useSelector, useDispatch} from 'react-redux';
+import _store from './redux/store';
+import 'react-native-gesture-handler';
 import {
   SafeAreaView,
   ScrollView,
@@ -20,9 +14,20 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-// import * as Screens from './screens';
-import RootNavigation from './RootNavigation';
-import * as Screens from './screens';
 export default function App() {
-  return <RootNavigation />;
+  const Stack = createNativeStackNavigator();
+  const screenOptions = {headerShown: false};
+  return (
+    <Provider store={_store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={screenOptions} initialRouteName="Home">
+          <Stack.Screen name="Home" component={Screens.Home} />
+          <Stack.Screen
+            name="RestaurantDetail"
+            component={Screens.RestaurantDetail}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  );
 }
