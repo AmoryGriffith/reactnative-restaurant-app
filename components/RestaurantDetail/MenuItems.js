@@ -6,10 +6,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../../redux/actions/cart';
 export default function MenuItems({restaurantName}) {
   const dispatch = useDispatch();
-  const addItems = checkboxValue => {
-    actions.selectItems(checkboxValue);
-  };
-  const {cartItems} = useSelector(state => state._cart.selectItems.items);
+  async function addItems(item, checkboxValue) {
+    dispatch(actions.selectItems(item, checkboxValue));
+  }
+  // const {cartItems} = useSelector(state => state._cart.selectItems.items);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       {fake_menu.map((item, index) => (
@@ -20,7 +20,10 @@ export default function MenuItems({restaurantName}) {
               justifyContent: 'space-between',
               margin: 20,
             }}>
-            <BouncyCheckbox fillColor="#8A0707" onPress={addItems} />
+            <BouncyCheckbox
+              fillColor="#8A0707"
+              onPress={(item, checkboxValue) => addItems(item, checkboxValue)}
+            />
             <FoodInfo
               title={item.title}
               description={item.description}

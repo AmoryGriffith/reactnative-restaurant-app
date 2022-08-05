@@ -1,16 +1,17 @@
 import {ADD_TO_CART} from '../constants';
 
 import axios from 'axios';
-export const selectItems = params => async dispatch => {
-  return dispatch({
-    type: ADD_TO_CART,
-    payload: {
-      ...items,
-      restaurantName: restaurantName,
-      checkboxValue: checkboxValue,
-    },
-  });
-};
+export const selectItems =
+  (item, restaurantName, checkboxValue) => async dispatch => {
+    return dispatch({
+      type: ADD_TO_CART,
+      payload: {
+        ...item,
+        restaurantName: restaurantName,
+        checkboxValue: checkboxValue,
+      },
+    });
+  };
 // export function getItems() {
 //   return async dispatch => {
 //     try {
