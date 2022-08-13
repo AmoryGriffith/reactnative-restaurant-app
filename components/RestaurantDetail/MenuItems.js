@@ -1,35 +1,40 @@
 import {View, Text, Image, ScrollView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Divider} from 'react-native-elements';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../../redux/actions/cart';
-export default function MenuItems({restaurantName}) {
+export default function MenuItems({restaurantName, data}) {
   const dispatch = useDispatch();
-  async function addItems(item, checkboxValue) {
+  const addItems = (item, checkboxValue) => {
     dispatch(actions.selectItems(item, checkboxValue));
-  }
-  // const {cartItems} = useSelector(state => state._cart.selectItems.items);
+  };
+
+  const cartItems = useSelector(state => state._cart.selectedItems.items);
+
+  const isFoodInCart = (food, cartItems) =>
+    Boolean(cartItems.find(item => item.title === food.title));
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      {fake_menu.map((item, index) => (
-        <View>
+    <ScrollView vertical showsVerticalScrollIndicator={false}>
+      {data.map((food, index) => (
+        <View key={index}>
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'space-between',
+              justifyContent: 'space-around',
               margin: 20,
             }}>
             <BouncyCheckbox
               fillColor="#8A0707"
-              onPress={(item, checkboxValue) => addItems(item, checkboxValue)}
+              isChecked={isFoodInCart(food, cartItems)}
+              onPress={checkboxValue => addItems(food, checkboxValue)}
             />
             <FoodInfo
-              title={item.title}
-              description={item.description}
-              price={item.price}
+              title={food.title}
+              description={food.description}
+              price={food.price}
             />
-            <FoodImage image={item.image} />
+            <FoodImage image={food.image} />
           </View>
           <Divider
             width={0.5}
@@ -64,26 +69,3 @@ const FoodImage = ({image}) => {
     </View>
   );
 };
-const fake_menu = [
-  {
-    title: 'Tequilla',
-    description: 'Famous Drink of the West',
-    price: '12$',
-    image:
-      'https://liquorshop.hk/wp-content/uploads/2020/08/Don-Julio-Anejo-504x504.jpg',
-  },
-  {
-    title: 'Vodka',
-    description: 'Famous Drink from Russia',
-    price: '10$',
-    image:
-      'https://www.watsonswine.com/medias/sys_master/front/prd/8814637219870/VODKA-457168.jpg',
-  },
-  {
-    title: 'Red Wine',
-    description: 'Fine collected grapes, aged for years, masterpiece wine',
-    price: '12$',
-    image:
-      'https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/03/wine-two-glasses-calories-facebook-1200x628.jpg',
-  },
-];

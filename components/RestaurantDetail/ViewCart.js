@@ -1,7 +1,7 @@
 import {View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
-export default function ViewCart() {
+export default function ViewCart({navigation}) {
   const {items, restaurantName} = useSelector(
     state => state._cart.selectedItems,
   );
@@ -12,17 +12,18 @@ export default function ViewCart() {
     style: 'currency',
     currency: 'USD',
   });
+  const [visible, setVisible] = useState(false);
   return (
     <>
-      {/* {total ? ( */}
       <View
         style={{
           flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
           flexDirection: 'row',
           position: 'absolute',
-          alignItems: 'center',
-          bottom: 5,
-          zIndex: 100,
+          bottom: 130,
+          zIndex: 999,
         }}>
         <View
           style={{
@@ -46,7 +47,7 @@ export default function ViewCart() {
               style={{
                 color: 'white',
                 fontSize: 20,
-                marginRight: totalUSD.length > 0 ? 20 : 0,
+                marginRight: 20,
               }}>
               ViewCart
             </Text>
@@ -54,9 +55,6 @@ export default function ViewCart() {
           </TouchableOpacity>
         </View>
       </View>
-      {/* ) : (
-        <></>
-      )} */}
     </>
   );
 }
