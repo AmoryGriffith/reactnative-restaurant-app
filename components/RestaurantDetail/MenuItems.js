@@ -6,14 +6,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../../redux/actions/cart';
 export default function MenuItems({restaurantName, data}) {
   const dispatch = useDispatch();
-  const addItems = (item, checkboxValue) => {
-    dispatch(actions.selectItems(item, checkboxValue));
+  const addItems = (item, checkboxValue, restaurantName) => {
+    dispatch(actions.selectItems(item, checkboxValue, restaurantName));
   };
-
-  const cartItems = useSelector(state => state._cart.selectedItems.items);
-
-  const isFoodInCart = (food, cartItems) =>
-    Boolean(cartItems.find(item => item.title === food.title));
+  const items = useSelector(state => state._cart.selectedItems.items);
+  const isFoodInCart = (food, items) =>
+    Boolean(items.find(item => item.title === food.title));
   return (
     <ScrollView vertical showsVerticalScrollIndicator={false}>
       {data.map((food, index) => (
@@ -26,8 +24,10 @@ export default function MenuItems({restaurantName, data}) {
             }}>
             <BouncyCheckbox
               fillColor="#8A0707"
-              isChecked={isFoodInCart(food, cartItems)}
-              onPress={checkboxValue => addItems(food, checkboxValue)}
+              isChecked={isFoodInCart(food, items)}
+              onPress={checkboxValue =>
+                addItems(food, checkboxValue, restaurantName)
+              }
             />
             <FoodInfo
               title={food.title}

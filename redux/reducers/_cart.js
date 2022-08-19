@@ -1,24 +1,56 @@
-import {act} from 'react-test-renderer';
-import {selectItems} from '../actions/cart';
 import {ADD_TO_CART} from '../constants';
-const initialState = {
+let initialState = {
   selectedItems: {
     items: [],
     restaurantName: '',
   },
 };
-export default function (state = initialState, action) {
+// export default function (state = initialState, action) {
+//   switch (action.type) {
+//     case ADD_TO_CART: {
+//       if (action.payload.checkboxValue) {
+//         return {
+//           ...state,
+//           items: [action.payload],
+//           restaurantName: action.payload.name,
+//         };
+//       }
+//     }
+//     default:
+//       return state;
+//   }
+// }
+
+let _cart = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART: {
+      let newState = {...state};
+
       if (action.payload.checkboxValue) {
-        return {
-          ...state,
-          items: [action.payload],
-          restaurantName: action.payload.name,
+        console.log('ADD TO CART');
+
+        newState.selectedItems = {
+          items: [...newState.selectedItems.items, action.payload],
+          restaurantName: action.payload.restaurantName,
+        };
+      } else {
+        console.log('REMOVE FROM CART');
+        newState.selectedItems = {
+          items: [
+            ...newState.selectedItems.items.filter(
+              item => item.title !== action.payload.title,
+            ),
+          ],
+          restaurantName: action.payload.restaurantName,
         };
       }
+      console.log(newState, '👉');
+      return newState;
     }
+
     default:
       return state;
   }
-}
+};
+
+export default _cart;

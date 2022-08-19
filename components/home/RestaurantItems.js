@@ -1,7 +1,8 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 export default function RestaurantItems({restaurantData, navigation}) {
+  const [click, setClick] = useState(false);
   return (
     <>
       {restaurantData.map((item, index) => (
@@ -21,7 +22,11 @@ export default function RestaurantItems({restaurantData, navigation}) {
           <View
             style={{marginTop: 10, padding: 15, backgroundColor: 'white'}}
             key={index}>
-            <RestaurantImage image={item.image_url} />
+            <RestaurantImage
+              image={item.image_url}
+              click={click}
+              onPress={() => setClick(click)}
+            />
             <RestaurantInfo name={item.name} rating={item.rating} />
           </View>
         </TouchableOpacity>
@@ -29,7 +34,7 @@ export default function RestaurantItems({restaurantData, navigation}) {
     </>
   );
 }
-const RestaurantImage = ({image}) => {
+const RestaurantImage = ({image, click, onPress}) => {
   return (
     <View>
       <Image
@@ -38,8 +43,14 @@ const RestaurantImage = ({image}) => {
         }}
         style={{width: '100%', height: 180}}
       />
-      <TouchableOpacity style={{position: 'absolute', right: 20, top: 15}}>
-        <MaterialCommunityIcons name="heart-outline" size={25} color="#fff" />
+      <TouchableOpacity
+        style={{position: 'absolute', right: 20, top: 15}}
+        onPress={onPress}>
+        {click ? (
+          <MaterialCommunityIcons name="heart-outline" size={25} color="#fff" />
+        ) : (
+          <MaterialCommunityIcons name="heart" size={25} color="red" />
+        )}
       </TouchableOpacity>
     </View>
   );

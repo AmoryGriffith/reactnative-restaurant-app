@@ -9,12 +9,10 @@ export default function ViewCart({navigation}) {
     state => state._cart.selectedItems,
   );
   const total = items
-    .map(item => Number(item.price.repplace('$', '')))
+    .map(item => Number(item.price.replace('$', '')))
     .reduce((prev, curr) => prev + curr, 0);
-  const totalUSD = total.toLocaleString('en', {
-    style: 'currency',
-    currency: 'USD',
-  });
+
+  const totalUSD = total.toLocaleString();
 
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,7 +29,7 @@ export default function ViewCart({navigation}) {
       .then(() => {
         setTimeout(() => {
           setLoading(false);
-          navigation.navigate('OrderCompleted');
+          navigation.navigate('OrderSuccess');
         }, 2500);
       });
   };
@@ -61,7 +59,7 @@ export default function ViewCart({navigation}) {
             justifyContent: 'center',
             flexDirection: 'row',
             position: 'absolute',
-            bottom: 130,
+            bottom: 10,
             zIndex: 999,
           }}>
           <View
