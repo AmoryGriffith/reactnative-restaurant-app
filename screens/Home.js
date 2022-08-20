@@ -32,15 +32,6 @@ export default function Home({navigation}) {
       ),
     );
     setLoading(false);
-    // return fetch(webUrl, apiOptions)
-    //   .then(res => res.json())
-    //   .then(json =>
-    //     setRestaurantData(
-    //       json.businesses.filter(businesses =>
-    //         businesses.transactions.includes(activeTab.toLocaleLowerCase()),
-    //       ),
-    //     ),
-    //   );
   };
   useEffect(() => {
     getRestaurantFromWeb();

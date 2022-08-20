@@ -5,15 +5,20 @@ import OrderItem from './OrderItem';
 import LottieView from 'lottie-react-native';
 import firebase from '../../firebase';
 export default function ViewCart({navigation}) {
-  const {items, restaurantName} = useSelector(
-    state => state._cart.selectedItems,
+  const restaurantName = useSelector(
+    state => state._cart.selectedItems.restaurantName,
   );
+  const items = useSelector(state => state._cart.selectedItems.items);
   const total = items
-    .map(item => Number(item.price.replace('$', '')))
-    .reduce((prev, curr) => prev + curr, 0);
+    ? items
+        .map(item => Number(item.price.replace('$', '')))
+        .reduce((prev, curr) => prev + curr, 0)
+    : '';
 
-  const totalUSD = total.toLocaleString();
-
+  const totalUSD = total.toLocaleString('en', {
+    style: 'currency',
+    currency: 'USD',
+  });
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -59,7 +64,7 @@ export default function ViewCart({navigation}) {
             justifyContent: 'center',
             flexDirection: 'row',
             position: 'absolute',
-            bottom: 10,
+            bottom: 300,
             zIndex: 999,
           }}>
           <View

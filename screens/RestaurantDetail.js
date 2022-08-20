@@ -10,8 +10,8 @@ export default function RestaurantDetail({route, navigation}) {
     <SafeAreaView>
       <About route={route} />
       <Divider style={{marginVertical: 20}} width={1.5} />
-      <ViewCart navigation={navigation} />
       <MenuItems restaurantName={route.params.name} data={fake_data} />
+      <ViewCart navigation={navigation} />
     </SafeAreaView>
   );
 }
