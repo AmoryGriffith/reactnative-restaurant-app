@@ -16,7 +16,7 @@ export default function RestaurantItems({restaurantData, navigation}) {
               price: item.price,
               reviews: item.review_count,
               rating: item.rating,
-              categoires: item.categoires,
+              categories: item.categories,
             })
           }>
           <View
@@ -27,7 +27,12 @@ export default function RestaurantItems({restaurantData, navigation}) {
               click={click}
               onPress={() => setClick(click)}
             />
-            <RestaurantInfo name={item.name} rating={item.rating} />
+            <RestaurantInfo
+              name={item.name}
+              rating={item.rating}
+              address={item.location.address1}
+              city={item.location.city}
+            />
           </View>
         </TouchableOpacity>
       ))}
@@ -56,7 +61,7 @@ const RestaurantImage = ({image, click, onPress}) => {
   );
 };
 
-const RestaurantInfo = ({name, rating, price, reviews, categoires}) => {
+const RestaurantInfo = ({name, rating, price, city, address}) => {
   return (
     <View
       style={{
@@ -68,7 +73,7 @@ const RestaurantInfo = ({name, rating, price, reviews, categoires}) => {
       <View>
         <Text style={{fontSize: 15, fontWeight: 'bold'}}>{name}</Text>
         <Text style={{fontSize: 14, color: 'grey'}}>
-          Time to reach there (30- 40min)
+          {address} <Text> {city}</Text>
         </Text>
       </View>
       <View

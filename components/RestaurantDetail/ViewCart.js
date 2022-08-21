@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 import OrderItem from './OrderItem';
 import LottieView from 'lottie-react-native';
 import firebase from '../../firebase';
+
 export default function ViewCart({navigation}) {
   const restaurantName = useSelector(
     state => state._cart.selectedItems.restaurantName,
@@ -34,7 +35,7 @@ export default function ViewCart({navigation}) {
       .then(() => {
         setTimeout(() => {
           setLoading(false);
-          navigation.navigate('OrderSuccess');
+          navigation.navigate('OrderCompleted');
         }, 2500);
       });
   };
@@ -76,7 +77,7 @@ export default function ViewCart({navigation}) {
             <TouchableOpacity
               style={{
                 flexDirection: 'row',
-                backgroundColor: 'grey',
+                backgroundColor: 'black',
                 marginTop: 20,
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -84,14 +85,15 @@ export default function ViewCart({navigation}) {
                 borderRadius: 30,
                 width: 300,
                 position: 'relative',
-              }}>
+              }}
+              onPress={() => setVisible(true)}>
               <Text
                 style={{
                   color: 'white',
                   fontSize: 20,
                   marginRight: 20,
                 }}>
-                ViewCart
+                Total:
               </Text>
               <Text style={{color: 'white', fontSize: 20}}>{totalUSD}</Text>
             </TouchableOpacity>
@@ -187,7 +189,7 @@ const CheckModalContent = ({
                 position: 'relative',
               }}
               onPress={onPress}>
-              <Text style={{color: 'white', fontSize: 20}}>Checkout</Text>
+              <Text style={{color: 'white', fontSize: 20}}>Purchase</Text>
               <Text
                 style={{
                   position: 'absolute',
