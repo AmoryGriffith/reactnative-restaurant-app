@@ -35,7 +35,7 @@ export default function ViewCart({navigation}) {
       .then(() => {
         setTimeout(() => {
           setLoading(false);
-          navigation.navigate('OrderCompleted');
+          navigation.navigate('OrderSuccess');
         }, 2500);
       });
   };

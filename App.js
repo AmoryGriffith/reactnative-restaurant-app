@@ -18,6 +18,7 @@ export default function App() {
             name="RestaurantDetail"
             component={Screens.RestaurantDetail}
           />
+          <Stack.Screen name="OrderSuccess" component={Screens.OrderSuccess} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -1,3 +1,4 @@
 import Home from './Home';
 import RestaurantDetail from './RestaurantDetail';
-export {Home, RestaurantDetail};
+import OrderSuccess from './OrderSuccess';
+export {Home, RestaurantDetail, OrderSuccess};
